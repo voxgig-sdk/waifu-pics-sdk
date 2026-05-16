@@ -1,0 +1,27 @@
+# BasicImageFlow
+
+main: kit: flow: BasicImageFlow:
+{
+  entity: "image",
+  kind: "basic",
+  name: "BasicImageFlow",
+  step: [
+    {
+      match: {
+        category: "category01",
+        type: "type01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "image_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicImageFlow"
+}

@@ -1,0 +1,73 @@
+# Entity: image
+
+main: kit: entity: image: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "file"
+      req: true
+      type: "`$ARRAY`"
+    }
+  ]
+
+  name: "image"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "trap"
+                kind: "param"
+                name: "category"
+                orig: "category"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "nsfw"
+                kind: "param"
+                name: "type"
+                orig: "type"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/many/{type}/{category}"
+          parts: [
+            "many"
+            "{type}"
+            "{category}"
+          ]
+          select: {
+            exist: [
+              "category"
+              "type"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "many"
+      ]
+    ]
+  }
+
+
+
+}

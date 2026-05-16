@@ -1,0 +1,28 @@
+{
+  "existing": {
+    "image": {
+      "IMAGE00": {
+        "file": [],
+        "category": "CATEGORY01",
+        "type": "TYPE01"
+      },
+      "IMAGE01": {
+        "file": [],
+        "category": "CATEGORY01",
+        "type": "TYPE01"
+      },
+      "IMAGE02": {
+        "file": [],
+        "category": "CATEGORY01",
+        "type": "TYPE01"
+      }
+    }
+  },
+  "new": {
+    "image": {
+      "image_ref01": {
+        "file": []
+      }
+    }
+  }
+}

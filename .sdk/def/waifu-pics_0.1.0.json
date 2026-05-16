@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Waifu Pics API",
+    "description": "The Waifu Pics API provides a platform for sharing and accessing user-curated anime images from the waifu.pics collection. It allows users to retrieve images based on specified genres and tags, enabling easy access to a variety of anime-themed content.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "API Documentation",
+      "url": "https://github.com/l0v3m0n3y/waifu_pics"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.waifu.pics",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/many/{type}/{category}": {
+      "get": {
+        "summary": "Get multiple anime images",
+        "description": "Retrieves multiple anime images based on the specified type (genre) and category (tag). Returns a collection of image URLs from the waifu.pics user-curated collection.",
+        "operationId": "getManyPics",
+        "tags": [
+          "Images"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "The genre type of images to retrieve (e.g., 'sfw' for safe-for-work or 'nsfw' for not-safe-for-work)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "sfw",
+                "nsfw"
+              ],
+              "example": "nsfw"
+            }
+          },
+          {
+            "name": "category",
+            "in": "path",
+            "description": "The category or tag of images to retrieve (e.g., 'waifu', 'neko', 'trap', etc.)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "trap"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with multiple image URLs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "files": {
+                      "type": "array",
+                      "description": "Array of image URLs",
+                      "items": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://cdn.waifu.pics/image123.jpg"
+                      }
+                    }
+                  },
+                  "required": [
+                    "files"
+                  ]
+                },
+                "example": {
+                  "files": [
+                    "https://cdn.waifu.pics/image1.jpg",
+                    "https://cdn.waifu.pics/image2.jpg",
+                    "https://cdn.waifu.pics/image3.jpg"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid type or category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid type or category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No images found for the specified type and category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "No images found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Images",
+      "description": "Operations for retrieving anime images"
+    }
+  ],
+  "externalDocs": {
+    "description": "GitHub Repository",
+    "url": "https://github.com/l0v3m0n3y/waifu_pics"
+  }
+}
