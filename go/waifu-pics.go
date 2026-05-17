@@ -1,10 +1,10 @@
 package voxgigwaifupicssdk
 
 import (
-	"github.com/voxgig-sdk/waifu-pics-sdk/core"
-	"github.com/voxgig-sdk/waifu-pics-sdk/entity"
-	"github.com/voxgig-sdk/waifu-pics-sdk/feature"
-	_ "github.com/voxgig-sdk/waifu-pics-sdk/utility"
+	"github.com/voxgig-sdk/waifu-pics-sdk/go/core"
+	"github.com/voxgig-sdk/waifu-pics-sdk/go/entity"
+	"github.com/voxgig-sdk/waifu-pics-sdk/go/feature"
+	_ "github.com/voxgig-sdk/waifu-pics-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

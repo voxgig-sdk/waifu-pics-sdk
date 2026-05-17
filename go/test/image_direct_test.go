@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/waifu-pics-sdk"
-	"github.com/voxgig-sdk/waifu-pics-sdk/core"
+	sdk "github.com/voxgig-sdk/waifu-pics-sdk/go"
+	"github.com/voxgig-sdk/waifu-pics-sdk/go/core"
 )
 
 func TestImageDirect(t *testing.T) {

@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/waifu-pics-sdk/core"
+	"github.com/voxgig-sdk/waifu-pics-sdk/go/core"
 )
 
 type BaseFeature struct {

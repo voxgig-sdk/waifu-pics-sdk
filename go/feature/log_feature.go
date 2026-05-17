@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/waifu-pics-sdk/core"
+	"github.com/voxgig-sdk/waifu-pics-sdk/go/core"
 )
 
 type LogFeature struct {
