@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { WaifuPicsSDK } from 'waifu-pics'
 
-const client = new WaifuPicsSDK({
-  apikey: process.env.WAIFU-PICS_APIKEY,
-})
+const client = new WaifuPicsSDK({})
 ```
 
 ### 2. List images
@@ -84,7 +82,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new WaifuPicsSDK({ apikey: '...' })
+const client = new WaifuPicsSDK()
 const testClient = client.tester()
 ```
 
@@ -120,7 +118,6 @@ const logger = {
 }
 
 const client = new WaifuPicsSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -131,7 +128,6 @@ Create a `.env.local` file at the project root:
 
 ```
 WAIFU-PICS_TEST_LIVE=TRUE
-WAIFU-PICS_APIKEY=<your-key>
 ```
 
 Then run:
@@ -149,7 +145,6 @@ cd ts && npm test
 
 ```ts
 new WaifuPicsSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -160,7 +155,6 @@ new WaifuPicsSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

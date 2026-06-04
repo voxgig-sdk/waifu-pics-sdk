@@ -20,9 +20,6 @@ class WaifuPicsConfig
             ],
             "options" => [
                 "base" => "https://api.waifu.pics",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

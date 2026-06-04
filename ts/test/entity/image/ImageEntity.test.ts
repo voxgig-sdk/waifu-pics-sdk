@@ -115,7 +115,6 @@ function basicSetup(extra?: any) {
     'WAIFU_PICS_TEST_IMAGE_ENTID': idmap,
     'WAIFU_PICS_TEST_LIVE': 'FALSE',
     'WAIFU_PICS_TEST_EXPLAIN': 'FALSE',
-    'WAIFU_PICS_APIKEY': 'NONE',
   })
 
   idmap = env['WAIFU_PICS_TEST_IMAGE_ENTID']
@@ -125,7 +124,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new WaifuPicsSDK(merge([
       {
-        apikey: env.WAIFU_PICS_APIKEY,
       },
       extra
     ]))
