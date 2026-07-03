@@ -10,7 +10,7 @@ The Python SDK for the WaifuPics API — an entity-oriented client following Pyt
 
 ## Install
 ```bash
-pip install waifu-pics-sdk
+pip install voxgig-sdk-waifu-pics
 ```
 
 Or install from source:

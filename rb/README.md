@@ -10,13 +10,13 @@ The Ruby SDK for the WaifuPics API — an entity-oriented client using idiomatic
 
 ## Install
 ```bash
-gem install waifu-pics-sdk
+gem install voxgig-sdk-waifu-pics
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "waifu-pics-sdk"
+gem "voxgig-sdk-waifu-pics"
 ```
 
 Then run:

@@ -10,7 +10,7 @@ The Lua SDK for the WaifuPics API — an entity-oriented client using Lua conven
 
 ## Install
 ```bash
-luarocks install waifu-pics-sdk
+luarocks install voxgig-sdk-waifu-pics
 ```
 
 If the module is not yet published, add the source directory to

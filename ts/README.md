@@ -10,7 +10,7 @@ The TypeScript SDK for the WaifuPics API — a type-safe, entity-oriented client
 
 ## Install
 ```bash
-npm install waifu-pics
+npm install @voxgig-sdk/waifu-pics
 ```
 ## Tutorial: your first API call
 

@@ -10,7 +10,7 @@ The PHP SDK for the WaifuPics API — an entity-oriented client using PHP conven
 
 ## Install
 ```bash
-composer require voxgig/waifu-pics-sdk
+composer require voxgig-sdk/waifu-pics
 ```
 
 
