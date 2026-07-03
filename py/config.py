@@ -15,6 +15,9 @@ def make_config():
         },
         "options": {
             "base": "https://api.waifu.pics",
+            "auth": {
+                "prefix": "Bearer",
+            },
             "headers": {
         "content-type": "application/json",
       },
@@ -26,38 +29,40 @@ def make_config():
       "image": {
         "fields": [
           {
+            "active": True,
             "name": "file",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 0,
           },
         ],
         "name": "image",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "example": "trap",
                       "kind": "param",
                       "name": "category",
                       "orig": "category",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "example": "nsfw",
                       "kind": "param",
                       "name": "type",
                       "orig": "type",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -78,11 +83,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },

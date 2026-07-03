@@ -15,6 +15,9 @@ module WaifuPicsConfig
       },
       "options" => {
         "base" => "https://api.waifu.pics",
+        "auth" => {
+          "prefix" => "Bearer",
+        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -26,38 +29,40 @@ module WaifuPicsConfig
         "image" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "file",
               "req" => true,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 0,
             },
           ],
           "name" => "image",
           "op" => {
             "list" => {
+              "input" => "data",
               "name" => "list",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "example" => "trap",
                         "kind" => "param",
                         "name" => "category",
                         "orig" => "category",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "example" => "nsfw",
                         "kind" => "param",
                         "name" => "type",
                         "orig" => "type",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -78,11 +83,9 @@ module WaifuPicsConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "list",
             },
           },

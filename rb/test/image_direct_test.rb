@@ -81,12 +81,14 @@ def image_direct_setup(mockres)
   env = Runner.env_override({
     "WAIFUPICS_TEST_IMAGE_ENTID" => {},
     "WAIFUPICS_TEST_LIVE" => "FALSE",
+    "WAIFUPICS_APIKEY" => "NONE",
   })
 
   live = env["WAIFUPICS_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["WAIFUPICS_APIKEY"],
     }
     client = WaifuPicsSDK.new(merged_opts)
     return {

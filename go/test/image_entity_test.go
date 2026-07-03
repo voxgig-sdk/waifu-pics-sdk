@@ -122,6 +122,7 @@ func imageBasicSetup(extra map[string]any) *entityTestSetup {
 		"WAIFUPICS_TEST_IMAGE_ENTID": idmap,
 		"WAIFUPICS_TEST_LIVE":      "FALSE",
 		"WAIFUPICS_TEST_EXPLAIN":   "FALSE",
+		"WAIFUPICS_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["WAIFUPICS_TEST_IMAGE_ENTID"])
@@ -132,6 +133,7 @@ func imageBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["WAIFUPICS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["WAIFUPICS_APIKEY"],
 			},
 			extra,
 		})

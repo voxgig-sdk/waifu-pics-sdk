@@ -1,20 +1,8 @@
 # WaifuPics SDK
 
-Fetch random anime images from waifu.pics across SFW and NSFW categories
+Waifu Pics API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Waifu Pics API
-
-[waifu.pics](https://waifu.pics) is a community image API that serves random anime artwork sorted into themed categories. The service is free, public, and requires no API key.
-
-What you get from the API:
-
-- Random single-image URLs by category (SFW and NSFW)
-- Batch endpoints that return multiple image URLs in one call (POST `/many/{type}/{category}`)
-- Categories cover common anime reaction and character tropes (e.g. `waifu`, `neko`, `hug`, `pat`, `cry`, `smile`)
-
-The API is open and unauthenticated. Hosted at `https://api.waifu.pics`. NSFW endpoints exist alongside SFW ones, so callers should gate requests appropriately for their audience.
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install waifu-pics-sdk
 luarocks install waifu-pics-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { WaifuPicsSDK } from 'waifu-pics'
 
-const client = new WaifuPicsSDK({})
+const client = new WaifuPicsSDK({
+  apikey: process.env.WAIFU-PICS_APIKEY,
+})
 
 // List all images
 const images = await client.Image().list()
+console.log(images.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Image** | A single anime image resource returned as a URL, retrieved by category under `/sfw/{category}` or `/nsfw/{category}`, with batch variants at `/many/{type}/{category}`. | `/many/{type}/{category}` |
+| **Image** |  | `/many/{type}/{category}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -110,12 +100,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from waifupics_sdk import WaifuPicsSDK
 
-client = WaifuPicsSDK({})
+client = WaifuPicsSDK({
+    "apikey": os.environ.get("WAIFU-PICS_APIKEY"),
+})
 
 # List all images
-images, err = client.Image(None).list(None, None)
+images, err = client.Image().list()
+print(images)
 ```
 
 ### PHP
@@ -124,10 +118,13 @@ images, err = client.Image(None).list(None, None)
 <?php
 require_once 'waifupics_sdk.php';
 
-$client = new WaifuPicsSDK([]);
+$client = new WaifuPicsSDK([
+    "apikey" => getenv("WAIFU-PICS_APIKEY"),
+]);
 
 // List all images
-[$images, $err] = $client->Image(null)->list(null, null);
+[$images, $err] = $client->Image()->list();
+print_r($images);
 ```
 
 ### Golang
@@ -135,10 +132,13 @@ $client = new WaifuPicsSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/waifu-pics-sdk/go"
 
-client := sdk.NewWaifuPicsSDK(map[string]any{})
+client := sdk.NewWaifuPicsSDK(map[string]any{
+    "apikey": os.Getenv("WAIFU-PICS_APIKEY"),
+})
 
 // List all images
 images, err := client.Image(nil).List(nil, nil)
+fmt.Println(images)
 ```
 
 ### Ruby
@@ -146,10 +146,13 @@ images, err := client.Image(nil).List(nil, nil)
 ```ruby
 require_relative "WaifuPics_sdk"
 
-client = WaifuPicsSDK.new({})
+client = WaifuPicsSDK.new({
+  "apikey" => ENV["WAIFU-PICS_APIKEY"],
+})
 
 # List all images
-images, err = client.Image(nil).list(nil, nil)
+images, err = client.Image().list
+puts images
 ```
 
 ### Lua
@@ -157,10 +160,13 @@ images, err = client.Image(nil).list(nil, nil)
 ```lua
 local sdk = require("waifu-pics_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("WAIFU-PICS_APIKEY"),
+})
 
 -- List all images
-local images, err = client:Image(nil):list(nil, nil)
+local images, err = client:Image():list()
+print(images)
 ```
 
 ## Unit testing in offline mode
@@ -179,25 +185,21 @@ const result = await client.Image().load({ id: 'test01' })
 ### Python
 
 ```python
-client = WaifuPicsSDK.test(None, None)
-result, err = client.Image(None).load(
-    {"id": "test01"}, None
-)
+client = WaifuPicsSDK.test()
+result, err = client.Image().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = WaifuPicsSDK::test(null, null);
-[$result, $err] = $client->Image(null)->load(
-    ["id" => "test01"], null
-);
+$client = WaifuPicsSDK::test();
+[$result, $err] = $client->Image()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Image(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -206,19 +208,15 @@ result, err := client.Image(nil).Load(
 ### Ruby
 
 ```ruby
-client = WaifuPicsSDK.test(nil, nil)
-result, err = client.Image(nil).load(
-  { "id" => "test01" }, nil
-)
+client = WaifuPicsSDK.test
+result, err = client.Image().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Image(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Image():load({ id = "test01" })
 ```
 
 ## How it works
@@ -322,11 +320,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Waifu Pics API
-
-- Upstream: [https://waifu.pics](https://waifu.pics)
-- API docs: [https://waifu.pics/docs](https://waifu.pics/docs)
 
 ---
 

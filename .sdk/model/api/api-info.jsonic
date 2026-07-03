@@ -17,22 +17,7 @@ main: {
       ]
       title: "Waifu Pics API"
       version: "1.0.0"
-      tagline: "Fetch random anime images from waifu.pics across SFW and NSFW categories"
-      homepage: "https://waifu.pics"
-      docs_url: "https://waifu.pics/docs"
-      about_md: `[waifu.pics](https://waifu.pics) is a community image API that serves random anime artwork sorted into themed categories. The service is free, public, and requires no API key.
-
-What you get from the API:
-
-- Random single-image URLs by category (SFW and NSFW)
-- Batch endpoints that return multiple image URLs in one call (POST \`/many/{type}/{category}\`)
-- Categories cover common anime reaction and character tropes (e.g. \`waifu\`, \`neko\`, \`hug\`, \`pat\`, \`cry\`, \`smile\`)
-
-The API is open and unauthenticated. Hosted at \`https://api.waifu.pics\`. NSFW endpoints exist alongside SFW ones, so callers should gate requests appropriately for their audience.`
-      entity_desc: {
-        image: "A single anime image resource returned as a URL, retrieved by category under `/sfw/{category}` or `/nsfw/{category}`, with batch variants at `/many/{type}/{category}`."
-      }
-      auth: false
     }
   }
 }
+

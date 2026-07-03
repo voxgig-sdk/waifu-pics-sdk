@@ -14,6 +14,9 @@ local function make_config()
     },
     options = {
       base = "https://api.waifu.pics",
+      auth = {
+        prefix = "Bearer",
+      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -25,38 +28,40 @@ local function make_config()
       ["image"] = {
         ["fields"] = {
           {
+            ["active"] = true,
             ["name"] = "file",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
-            ["active"] = true,
             ["index$"] = 0,
           },
         },
         ["name"] = "image",
         ["op"] = {
           ["list"] = {
+            ["input"] = "data",
             ["name"] = "list",
             ["points"] = {
               {
+                ["active"] = true,
                 ["args"] = {
                   ["params"] = {
                     {
+                      ["active"] = true,
                       ["example"] = "trap",
                       ["kind"] = "param",
                       ["name"] = "category",
                       ["orig"] = "category",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
-                      ["active"] = true,
                     },
                     {
+                      ["active"] = true,
                       ["example"] = "nsfw",
                       ["kind"] = "param",
                       ["name"] = "type",
                       ["orig"] = "type",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
-                      ["active"] = true,
                     },
                   },
                 },
@@ -77,11 +82,9 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["active"] = true,
                 ["index$"] = 0,
               },
             },
-            ["input"] = "data",
             ["key$"] = "list",
           },
         },
