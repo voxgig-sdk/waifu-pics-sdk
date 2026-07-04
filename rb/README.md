@@ -28,16 +28,14 @@ require_relative "WaifuPics_sdk"
 client = WaifuPicsSDK.new
 ```
 
-### 2. List images
+### 2. List image records
 
 ```ruby
 begin
-  result = client.image.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Image records — iterate directly.
+  images = client.Image.list
+  images.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = WaifuPicsSDK.test
+client = WaifuPicsSDK.test({
+  "entity" => { "image" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.image.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+image = client.Image.load({ "id" => "test01" })
+puts image
 ```
 
 ### Use a custom fetch function
@@ -167,7 +169,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Image` | `(data) -> ImageEntity` | Create a Image entity instance. |
+| `Image` | `(data) -> ImageEntity` | Create an Image entity instance. |
 
 ### Entity interface
 
@@ -223,7 +225,7 @@ API path: `/many/{type}/{category}`
 
 ### Image
 
-Create an instance: `const image = client.image`
+Create an instance: `image = client.Image`
 
 #### Operations
 
@@ -239,8 +241,9 @@ Create an instance: `const image = client.image`
 
 #### Example: List
 
-```ts
-const images = await client.image.list()
+```ruby
+# list returns an Array of Image records (raises on error).
+images = client.Image.list
 ```
 
 
@@ -315,7 +318,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-image = client.image
+image = client.Image
 image.load({ "id" => "example_id" })
 
 # image.data_get now returns the loaded image data

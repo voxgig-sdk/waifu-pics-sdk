@@ -208,13 +208,7 @@ class WaifuPicsSDK
   end
 
 
-  # Idiomatic facade: client.image.list / client.image.load({ "id" => ... })
-  def image
-    require_relative 'entity/image_entity'
-    @image ||= ImageEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.image instead.
+  # Canonical facade: client.Image.list / client.Image.load({ "id" => ... })
   def Image(data = nil)
     require_relative 'entity/image_entity'
     ImageEntity.new(self, data)

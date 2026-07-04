@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## ImageEntity
 
 ```ruby
-image = client.image
+image = client.Image
 ```
 
 ### Fields
@@ -102,7 +102,7 @@ image = client.image
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.image.list(nil)
+results = client.Image.list(nil)
 ```
 
 ### Common Methods

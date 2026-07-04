@@ -29,18 +29,16 @@ require_once 'waifupics_sdk.php';
 $client = new WaifuPicsSDK();
 ```
 
-### 2. List images
+### 2. List image records
 
 ```php
 try {
-    $result = $client->image()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Image records — iterate directly.
+    $images = $client->Image()->list();
+    foreach ($images as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = WaifuPicsSDK::test();
+$client = WaifuPicsSDK::test([
+    "entity" => ["image" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->image()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$image = $client->Image()->load(["id" => "test01"]);
+print_r($image);
 ```
 
 ### Use a custom fetch function
@@ -171,7 +173,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Image` | `($data): ImageEntity` | Create a Image entity instance. |
+| `Image` | `($data): ImageEntity` | Create an Image entity instance. |
 
 ### Entity interface
 
@@ -228,7 +230,7 @@ API path: `/many/{type}/{category}`
 
 ### Image
 
-Create an instance: `const image = client.image`
+Create an instance: `$image = $client->Image();`
 
 #### Operations
 
@@ -244,8 +246,9 @@ Create an instance: `const image = client.image`
 
 #### Example: List
 
-```ts
-const images = await client.image.list()
+```php
+// list() returns an array of Image records (throws on error).
+$images = $client->Image()->list();
 ```
 
 
@@ -320,7 +323,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$image = $client->image();
+$image = $client->Image();
 $image->load(["id" => "example_id"]);
 
 // $image->dataGet() now returns the loaded image data

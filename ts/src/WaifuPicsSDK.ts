@@ -204,14 +204,7 @@ class WaifuPicsSDK {
 
 
 
-  _image?: ImageEntity
-
-  // Idiomatic facade: `client.image.list()` / `client.image.load({ id })`.
-  get image(): ImageEntity {
-    return (this._image ??= new ImageEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.image` instead. */
+  // Entity access: `client.Image().list()` / `client.Image().load({ id })`.
   Image(data?: any) {
     const self = this
     return new ImageEntity(self,data)

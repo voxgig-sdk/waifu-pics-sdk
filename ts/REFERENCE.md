@@ -109,7 +109,7 @@ Alias for `WaifuPicsSDK.test()`.
 ## ImageEntity
 
 ```ts
-const image = client.image
+const image = client.Image()
 ```
 
 ### Fields
@@ -125,7 +125,7 @@ const image = client.image
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.image.list()
+const results = await client.Image().list()
 ```
 
 ### Common Methods

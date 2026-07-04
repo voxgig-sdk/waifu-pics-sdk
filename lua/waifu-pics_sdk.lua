@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:image():list() / client:image():load({ id = ... })
-function WaifuPicsSDK:image(data)
+-- Idiomatic facade: client:Image():list() / client:Image():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WaifuPicsSDK:Image(data)
   local EntityMod = require("entity.image_entity")
   if data == nil then
     if self._image == nil then
@@ -253,12 +254,6 @@ function WaifuPicsSDK:image(data)
     end
     return self._image
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:image() instead.
-function WaifuPicsSDK:Image(data)
-  local EntityMod = require("entity.image_entity")
   return EntityMod.new(self, data)
 end
 

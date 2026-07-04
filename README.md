@@ -26,9 +26,11 @@ import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
 
 const client = new WaifuPicsSDK()
 
-// List all images
-const images = await client.image.list()
-console.log(images.data)
+// List all images (returns Image[])
+const images = await client.Image().list()
+for (const image of images) {
+  console.log(image)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,9 +85,10 @@ from waifupics_sdk import WaifuPicsSDK
 
 client = WaifuPicsSDK()
 
-# List all images
-images = client.image.list()
-print(images)
+# List all images (returns a list, raises on error)
+images = client.Image().list({})
+for image in images:
+    print(image)
 ```
 
 ### PHP
@@ -96,8 +99,8 @@ require_once 'waifupics_sdk.php';
 
 $client = new WaifuPicsSDK();
 
-// List all images (throws on error)
-$images = $client->image()->list();
+// List all images (returns an array; throws on error)
+$images = $client->Image()->list();
 print_r($images);
 ```
 
@@ -120,8 +123,8 @@ require_relative "WaifuPics_sdk"
 
 client = WaifuPicsSDK.new
 
-# List all images
-images = client.image.list
+# List all images (returns an Array; raises on error)
+images = client.Image.list
 puts images
 ```
 
@@ -133,7 +136,7 @@ local sdk = require("waifu-pics_sdk")
 local client = sdk.new()
 
 -- List all images
-local images, err = client:image():list()
+local images, err = client:Image():list()
 print(images)
 ```
 
@@ -146,22 +149,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = WaifuPicsSDK.test()
-const result = await client.image.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const image = await client.Image().load({ id: 'test01' })
+// image is a bare Image populated with mock data
+console.log(image)
 ```
 
 ### Python
 
 ```python
 client = WaifuPicsSDK.test()
-result = client.image.load({"id": "test01"})
+image = client.Image().load({"id": "test01"})
+print(image)
 ```
 
 ### PHP
 
 ```php
-$client = WaifuPicsSDK::test();
-$result = $client->image()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = WaifuPicsSDK::test([
+    "entity" => ["image" => ["test01" => ["id" => "test01"]]],
+]);
+$image = $client->Image()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -176,15 +184,18 @@ result, err := client.Image(nil).Load(
 ### Ruby
 
 ```ruby
-client = WaifuPicsSDK.test
-result = client.image.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = WaifuPicsSDK.test({
+  "entity" => { "image" => { "test01" => { "id" => "test01" } } },
+})
+image = client.Image.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:image():load({ id = "test01" })
+local result, err = client:Image():load({ id = "test01" })
 ```
 
 ## How it works
@@ -232,6 +243,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

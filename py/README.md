@@ -31,14 +31,16 @@ from waifupics_sdk import WaifuPicsSDK
 client = WaifuPicsSDK()
 ```
 
-### 2. List images
+### 2. List image records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.image.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    images = client.Image().list({})
+    for image in images:
+        print(image)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WaifuPicsSDK.test()
 
-result = client.image.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+image = client.Image().load({"id": "test01"})
+# image contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -163,7 +166,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Image` | `(data) -> ImageEntity` | Create a Image entity instance. |
+| `Image` | `(data) -> ImageEntity` | Create an Image entity instance. |
 
 ### Entity interface
 
@@ -220,7 +223,7 @@ API path: `/many/{type}/{category}`
 
 ### Image
 
-Create an instance: `const image = client.image`
+Create an instance: `image = client.Image()`
 
 #### Operations
 
@@ -236,8 +239,8 @@ Create an instance: `const image = client.image`
 
 #### Example: List
 
-```ts
-const images = await client.image.list()
+```python
+images = client.Image().list({})
 ```
 
 
@@ -311,7 +314,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-image = client.image
+image = client.Image()
 image.load({"id": "example_id"})
 
 # image.data_get() now returns the loaded image data

@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## ImageEntity
 
 ```lua
-local image = client:image(nil)
+local image = client:Image(nil)
 ```
 
 ### Fields
@@ -99,7 +99,7 @@ local image = client:image(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:image():list()
+local results, err = client:Image():list()
 ```
 
 ### Common Methods

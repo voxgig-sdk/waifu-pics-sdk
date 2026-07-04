@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## ImageEntity
 
 ```python
-image = client.image
+image = client.Image()
 ```
 
 ### Fields
@@ -96,7 +96,9 @@ image = client.image
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.image.list({})
+results = client.Image().list({})
+for image in results:
+    print(image)
 ```
 
 ### Common Methods

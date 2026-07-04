@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## ImageEntity
 
 ```php
-$image = $client->image();
+$image = $client->Image();
 ```
 
 ### Fields
@@ -101,7 +101,7 @@ $image = $client->image();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->image()->list([]);
+$results = $client->Image()->list([]);
 ```
 
 ### Common Methods
