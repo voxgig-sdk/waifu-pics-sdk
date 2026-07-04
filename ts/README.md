@@ -9,9 +9,12 @@ The TypeScript SDK for the WaifuPics API — a type-safe, entity-oriented client
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/waifu-pics
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/waifu-pics-sdk/releases](https://github.com/voxgig-sdk/waifu-pics-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { WaifuPicsSDK } from 'waifu-pics'
+import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
 
-const client = new WaifuPicsSDK({
-  apikey: process.env.WAIFU-PICS_APIKEY,
-})
+const client = new WaifuPicsSDK()
 ```
 
 ### 2. List images
 
 ```ts
-const result = await client.Image().list()
+const result = await client.image.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WaifuPicsSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.image.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -89,7 +90,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new WaifuPicsSDK({ apikey: '...' })
+const client = new WaifuPicsSDK()
 const testClient = client.tester()
 ```
 
@@ -98,7 +99,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.image
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -125,7 +126,6 @@ const logger = {
 }
 
 const client = new WaifuPicsSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -135,8 +135,7 @@ const client = new WaifuPicsSDK({
 Create a `.env.local` file at the project root:
 
 ```
-WAIFU-PICS_TEST_LIVE=TRUE
-WAIFU-PICS_APIKEY=<your-key>
+WAIFU_PICS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -154,7 +153,6 @@ cd ts && npm test
 
 ```ts
 new WaifuPicsSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -165,7 +163,6 @@ new WaifuPicsSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -268,7 +265,7 @@ API path: `/many/{type}/{category}`
 
 ### Image
 
-Create an instance: `const image = client.Image()`
+Create an instance: `const image = client.image`
 
 #### Operations
 
@@ -285,7 +282,7 @@ Create an instance: `const image = client.Image()`
 #### Example: List
 
 ```ts
-const images = await client.Image().list()
+const images = await client.image.list()
 ```
 
 
@@ -346,7 +343,7 @@ waifu-pics/
 Import the SDK from the package root:
 
 ```ts
-import { WaifuPicsSDK } from 'waifu-pics'
+import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
 ```
 
 ### Entity state
@@ -356,11 +353,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const image = client.image
+await image.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// image.data() now returns the loaded image data
+// image.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -9,12 +9,9 @@ The Lua SDK for the WaifuPics API — an entity-oriented client using Lua conven
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-waifu-pics
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/waifu-pics-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("waifu-pics_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("WAIFU-PICS_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List images
 
 ```lua
-local result, err = client:Image():list()
+local result, err = client:image():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -93,7 +88,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:WaifuPics():load({ id = "test01" })
+local result, err = client:image():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -126,8 +121,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-WAIFU-PICS_TEST_LIVE=TRUE
-WAIFU-PICS_APIKEY=<your-key>
+WAIFU_PICS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -150,7 +144,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -227,7 +220,7 @@ API path: `/many/{type}/{category}`
 
 ### Image
 
-Create an instance: `const image = client.Image()`
+Create an instance: `const image = client.image`
 
 #### Operations
 
@@ -244,7 +237,7 @@ Create an instance: `const image = client.Image()`
 #### Example: List
 
 ```ts
-const images = await client.Image().list()
+const images = await client.image.list()
 ```
 
 
@@ -319,11 +312,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local image = client:image()
+image:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- image:data_get() now returns the loaded image data
+-- image:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

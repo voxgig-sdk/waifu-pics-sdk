@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.waifu.pics',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -83,7 +79,8 @@ class Config {
                     "name": "category",
                     "orig": "category",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -92,7 +89,8 @@ class Config {
                     "name": "type",
                     "orig": "type",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },

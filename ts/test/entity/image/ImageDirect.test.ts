@@ -89,14 +89,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'WAIFUPICS_TEST_IMAGE_ENTID': {},
     'WAIFUPICS_TEST_LIVE': 'FALSE',
-    'WAIFUPICS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.WAIFUPICS_TEST_LIVE
 
   if (live) {
     const client = new WaifuPicsSDK({
-      apikey: env.WAIFUPICS_APIKEY,
     })
 
     let idmap: any = env['WAIFUPICS_TEST_IMAGE_ENTID']

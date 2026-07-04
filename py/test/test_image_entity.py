@@ -53,8 +53,7 @@ class TestImageEntity:
             "type": setup["idmap"]["type01"],
         }
 
-        image_ref01_list_result, err = image_ref01_ent.list(image_ref01_match, None)
-        assert err is None
+        image_ref01_list_result = image_ref01_ent.list(image_ref01_match, None)
         assert isinstance(image_ref01_list_result, list)
 
 
@@ -95,7 +94,6 @@ def _image_basic_setup(extra):
         "WAIFUPICS_TEST_IMAGE_ENTID": idmap,
         "WAIFUPICS_TEST_LIVE": "FALSE",
         "WAIFUPICS_TEST_EXPLAIN": "FALSE",
-        "WAIFUPICS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -106,7 +104,6 @@ def _image_basic_setup(extra):
     if env.get("WAIFUPICS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("WAIFUPICS_APIKEY"),
             },
             extra or {},
         ])

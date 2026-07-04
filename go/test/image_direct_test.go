@@ -126,14 +126,12 @@ func imageDirectSetup(mockres any) *imageDirectSetupResult {
 	env := envOverride(map[string]any{
 		"WAIFUPICS_TEST_IMAGE_ENTID": map[string]any{},
 		"WAIFUPICS_TEST_LIVE":    "FALSE",
-		"WAIFUPICS_APIKEY":       "NONE",
 	})
 
 	live := env["WAIFUPICS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["WAIFUPICS_APIKEY"],
 		}
 		client := sdk.NewWaifuPicsSDK(mergedOpts)
 

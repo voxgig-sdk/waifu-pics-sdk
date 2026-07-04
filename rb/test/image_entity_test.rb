@@ -46,8 +46,7 @@ class ImageEntityTest < Minitest::Test
       "type" => setup[:idmap]["type01"],
     }
 
-    image_ref01_list_result, err = image_ref01_ent.list(image_ref01_match, nil)
-    assert_nil err
+    image_ref01_list_result = image_ref01_ent.list(image_ref01_match, nil)
     assert image_ref01_list_result.is_a?(Array)
 
   end
@@ -86,7 +85,6 @@ def image_basic_setup(extra)
     "WAIFUPICS_TEST_IMAGE_ENTID" => idmap,
     "WAIFUPICS_TEST_LIVE" => "FALSE",
     "WAIFUPICS_TEST_EXPLAIN" => "FALSE",
-    "WAIFUPICS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -98,7 +96,6 @@ def image_basic_setup(extra)
   if env["WAIFUPICS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["WAIFUPICS_APIKEY"],
       },
       extra || {},
     ])

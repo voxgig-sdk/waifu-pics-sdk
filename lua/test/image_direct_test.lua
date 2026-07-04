@@ -82,14 +82,12 @@ function image_direct_setup(mockres)
   local env = runner.env_override({
     ["WAIFUPICS_TEST_IMAGE_ENTID"] = {},
     ["WAIFUPICS_TEST_LIVE"] = "FALSE",
-    ["WAIFUPICS_APIKEY"] = "NONE",
   })
 
   local live = env["WAIFUPICS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["WAIFUPICS_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

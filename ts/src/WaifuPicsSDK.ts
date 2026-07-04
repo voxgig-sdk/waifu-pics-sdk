@@ -2,6 +2,8 @@
 
 import { ImageEntity } from './entity/ImageEntity'
 
+export type * from './WaifuPicsTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class WaifuPicsSDK {
 
 
 
+  _image?: ImageEntity
+
+  // Idiomatic facade: `client.image.list()` / `client.image.load({ id })`.
+  get image(): ImageEntity {
+    return (this._image ??= new ImageEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.image` instead. */
   Image(data?: any) {
     const self = this
     return new ImageEntity(self,data)

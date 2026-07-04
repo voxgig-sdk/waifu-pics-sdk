@@ -95,7 +95,6 @@ function image_basic_setup(extra)
     ["WAIFUPICS_TEST_IMAGE_ENTID"] = idmap,
     ["WAIFUPICS_TEST_LIVE"] = "FALSE",
     ["WAIFUPICS_TEST_EXPLAIN"] = "FALSE",
-    ["WAIFUPICS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -107,7 +106,6 @@ function image_basic_setup(extra)
   if env["WAIFUPICS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["WAIFUPICS_APIKEY"],
       },
       extra or {},
     })

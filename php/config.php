@@ -20,9 +20,6 @@ class WaifuPicsConfig
             ],
             "options" => [
                 "base" => "https://api.waifu.pics",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -59,6 +56,7 @@ class WaifuPicsConfig
                         'orig' => 'category',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -68,6 +66,7 @@ class WaifuPicsConfig
                         'orig' => 'type',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],

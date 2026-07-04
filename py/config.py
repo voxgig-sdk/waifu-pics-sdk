@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://api.waifu.pics",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -54,6 +51,7 @@ def make_config():
                       "orig": "category",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -63,6 +61,7 @@ def make_config():
                       "orig": "type",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },
