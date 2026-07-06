@@ -8,7 +8,7 @@ Complete API reference for the WaifuPics Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'waifu-pics_sdk'
+require_relative 'WaifuPics_sdk'
 
 client = WaifuPicsSDK.new(options)
 ```
@@ -93,16 +93,16 @@ image = client.Image
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | ``$ARRAY`` | Yes |  |
+| `file` | `Array` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Image.list(nil)
+results = client.Image.list
 ```
 
 ### Common Methods

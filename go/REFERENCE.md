@@ -97,7 +97,7 @@ image := client.Image(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | ``$ARRAY`` | Yes |  |
+| `file` | `[]any` | Yes |  |
 
 ### Operations
 

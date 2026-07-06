@@ -116,7 +116,7 @@ const image = client.Image()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | ``$ARRAY`` | Yes |  |
+| `file` | `any[]` | Yes |  |
 
 ### Operations
 

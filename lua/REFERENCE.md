@@ -90,7 +90,7 @@ local image = client:Image(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | ``$ARRAY`` | Yes |  |
+| `file` | `table` | Yes |  |
 
 ### Operations
 

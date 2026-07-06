@@ -8,7 +8,7 @@ Complete API reference for the WaifuPics Python SDK.
 ### Constructor
 
 ```python
-from waifu-pics_sdk import WaifuPicsSDK
+from waifupics_sdk import WaifuPicsSDK
 
 client = WaifuPicsSDK(options)
 ```
@@ -87,16 +87,16 @@ image = client.Image()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | ``$ARRAY`` | Yes |  |
+| `file` | `list` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Image().list({})
+results = client.Image().list()
 for image in results:
     print(image)
 ```
