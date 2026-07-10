@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -226,14 +223,17 @@
           "url": "https://github.com/l0v3m0n3y/waifu_pics"
         },
         "description": "The Waifu Pics API provides a platform for sharing and accessing user-curated anime images from the waifu.pics collection. It allows users to retrieve images based on specified genres and tags, enabling easy access to a variety of anime-themed content.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://api.waifu.pics"
           }
         ],
+        "summary": "The Waifu Pics API provides a platform for sharing and accessing user-curated anime images from the waifu.pics collection.",
         "title": "Waifu Pics API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://github.com/l0v3m0n3y/waifu_pics"
       },
       "option": {},
       "target": {
@@ -286,6 +286,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -336,6 +339,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

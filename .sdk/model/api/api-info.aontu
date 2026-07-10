@@ -16,9 +16,9 @@ main: {
           url: "https://api.waifu.pics"
         }
       ]
+      summary: "The Waifu Pics API provides a platform for sharing and accessing user-curated anime images from the waifu.pics collection."
       title: "Waifu Pics API"
       version: "1.0.0"
+      website: "https://github.com/l0v3m0n3y/waifu_pics"
     }
   }
-}
-
