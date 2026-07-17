@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- WaifuPics SDK exists test
 
 local sdk = require("waifu-pics_sdk")
 
