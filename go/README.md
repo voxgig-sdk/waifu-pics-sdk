@@ -260,7 +260,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"file"` |  |
+| `"files"` |  |
 
 Operations: List.
 
@@ -285,7 +285,7 @@ Create an instance: `image := client.Image(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `file` | `[]any` |  |
+| `files` | `[]any` |  |
 
 #### Example: List
 

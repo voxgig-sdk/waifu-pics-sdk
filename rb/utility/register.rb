@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ WaifuPicsUtility.registrar = ->(u) {
   u.prepare_params = WaifuPicsUtilities::PrepareParams
   u.prepare_path = WaifuPicsUtilities::PreparePath
   u.prepare_query = WaifuPicsUtilities::PrepareQuery
+  u.graphql_body = WaifuPicsUtilities::GraphqlBody
+  u.graphql_errors = WaifuPicsUtilities::GraphqlErrors
   u.result_basic = WaifuPicsUtilities::ResultBasic
   u.result_body = WaifuPicsUtilities::ResultBody
   u.result_headers = WaifuPicsUtilities::ResultHeaders

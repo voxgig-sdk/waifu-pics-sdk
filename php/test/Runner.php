@@ -43,8 +43,8 @@ class WaifuPicsTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('WAIFUPICS_TEST_LIVE');
-        $override = self::getenv('WAIFUPICS_TEST_OVERRIDE');
+        $live = self::getenv('WAIFU_PICS_TEST_LIVE');
+        $override = self::getenv('WAIFU_PICS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class WaifuPicsTestRunner
             }
         }
 
-        $explain = self::getenv('WAIFUPICS_TEST_EXPLAIN');
+        $explain = self::getenv('WAIFU_PICS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['WAIFUPICS_TEST_EXPLAIN'] = $explain;
+            $m['WAIFU_PICS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

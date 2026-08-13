@@ -15,7 +15,7 @@ declare(strict_types=1);
 /** Image entity data model. */
 class Image
 {
-    public array $file;
+    public array $files;
 }
 
 /** Request payload for Image#list. */

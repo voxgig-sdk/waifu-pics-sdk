@@ -26,8 +26,8 @@ import {
 describe('ImageEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when WAIFUPICS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('WAIFUPICS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WAIFU_PICS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WAIFU_PICS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = WaifuPicsSDK.test()
@@ -65,7 +65,7 @@ describe('ImageEntity', async () => {
     image_ref01_match['category'] = setup.idmap['category01']
     image_ref01_match['type'] = setup.idmap['type01']
 
-    const image_ref01_list = await image_ref01_ent.list(image_ref01_match)
+    const image_ref01_list = (await image_ref01_ent.list(image_ref01_match)).map((e: any) => e.data())
 
 
   })

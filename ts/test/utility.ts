@@ -62,8 +62,8 @@ function makeCtrl(explain: boolean) {
 // Overrides configuration values with environment variables if available
 function envOverride(m: Record<string, any>) {
   if (
-    'TRUE' === process.env.WAIFUPICS_TEST_LIVE ||
-    'TRUE' === process.env.WAIFUPICS_TEST_OVERRIDE
+    'TRUE' === process.env.WAIFU_PICS_TEST_LIVE ||
+    'TRUE' === process.env.WAIFU_PICS_TEST_OVERRIDE
   ) {
     Object.entries(m).map(n => {
       let envval = process.env[n[0]]
@@ -74,7 +74,7 @@ function envOverride(m: Record<string, any>) {
     })
   }
 
-  m.WAIFUPICS_TEST_EXPLAIN = process.env.WAIFUPICS_TEST_EXPLAIN || m.WAIFUPICS_TEST_EXPLAIN
+  m.WAIFU_PICS_TEST_EXPLAIN = process.env.WAIFU_PICS_TEST_EXPLAIN || m.WAIFU_PICS_TEST_EXPLAIN
 
   return m
 }

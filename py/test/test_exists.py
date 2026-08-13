@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# WaifuPics SDK exists test
 
 import pytest
 from waifupics_sdk import WaifuPicsSDK

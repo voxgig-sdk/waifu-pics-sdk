@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'WaifuPics',
   }
 
 
@@ -56,7 +56,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "file",
+          "name": "files",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 0
@@ -94,6 +94,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/many/{type}/{category}",
               "parts": [
@@ -109,7 +110,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.files`"
               },
               "index$": 0
             }

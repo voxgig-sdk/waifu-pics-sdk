@@ -7,7 +7,7 @@
 -- edit by hand.
 
 ---@class Image
----@field file table
+---@field files table
 
 ---@class ImageListMatch
 ---@field category string

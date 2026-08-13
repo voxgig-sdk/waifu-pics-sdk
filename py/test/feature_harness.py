@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import WaifuPicsControl
-from core.error import WaifuPicsError
-from core.result import WaifuPicsResult
-from core.spec import WaifuPicsSpec
+from waifupics_sdk.config import make_config
+from waifupics_sdk.features import _make_feature
+from waifupics_sdk.core.control import WaifuPicsControl
+from waifupics_sdk.core.error import WaifuPicsError
+from waifupics_sdk.core.result import WaifuPicsResult
+from waifupics_sdk.core.spec import WaifuPicsSpec
 
 
 # True when this SDK was generated with the named feature.

@@ -92,7 +92,7 @@ $image = $client->Image();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | `array` | Yes |  |
+| `files` | `array` | Yes |  |
 
 ### Operations
 

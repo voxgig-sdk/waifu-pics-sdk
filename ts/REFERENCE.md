@@ -116,7 +116,7 @@ const image = client.Image()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | `any[]` | Yes |  |
+| `files` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -125,7 +125,7 @@ const image = client.Image()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Image().list()
+const results = await client.Image().list({ category: "example", type: "example" })
 ```
 
 ### Common Methods

@@ -10,10 +10,10 @@
 
 # Image entity data model.
 #
-# @!attribute [rw] file
+# @!attribute [rw] files
 #   @return [Array]
 Image = Struct.new(
-  :file,
+  :files,
   keyword_init: true
 )
 

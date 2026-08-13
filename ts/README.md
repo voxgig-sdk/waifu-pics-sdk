@@ -35,10 +35,12 @@ const client = new WaifuPicsSDK()
 
 ### 2. List image records
 
-`list()` resolves to an array of Image objects — iterate it directly:
+`list()` resolves to an array of Image ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const images = await client.Image().list()
+const images = await client.Image().list({ category: "example", type: "example" })
 
 for (const image of images) {
   console.log(image)
@@ -120,7 +122,8 @@ Create a mock client for unit testing — no server required:
 const client = WaifuPicsSDK.test()
 
 const image = await client.Image().list()
-// image is a bare entity populated with mock response data
+// image is the entity, populated with mock response data
+// — call image.data() for the record itself
 console.log(image)
 ```
 
@@ -284,7 +287,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `file` |  |
+| `files` |  |
 
 Operations: list.
 
@@ -309,12 +312,12 @@ Create an instance: `const image = client.Image()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `file` | `any[]` |  |
+| `files` | `any[]` |  |
 
 #### Example: List
 
 ```ts
-const images = await client.Image().list()
+const images = await client.Image().list({ category: "example", type: "example" })
 ```
 
 

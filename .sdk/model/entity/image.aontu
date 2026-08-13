@@ -6,7 +6,7 @@ main: kit: entity: image: {
 
   fields: [
     {
-      name: "file"
+      name: "files"
       req: true
       type: "`$ARRAY`"
     }
@@ -53,7 +53,7 @@ main: kit: entity: image: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.files`"
           }
         }
       ]

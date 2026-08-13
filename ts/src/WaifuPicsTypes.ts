@@ -6,7 +6,7 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Image {
-  file: any[]
+  files: any[]
 }
 
 export interface ImageListMatch {

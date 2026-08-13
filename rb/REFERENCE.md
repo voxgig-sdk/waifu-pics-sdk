@@ -93,7 +93,7 @@ image = client.Image
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | `Array` | Yes |  |
+| `files` | `Array` | Yes |  |
 
 ### Operations
 

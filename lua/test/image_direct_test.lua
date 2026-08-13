@@ -80,11 +80,11 @@ function image_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["WAIFUPICS_TEST_IMAGE_ENTID"] = {},
-    ["WAIFUPICS_TEST_LIVE"] = "FALSE",
+    ["WAIFU_PICS_TEST_IMAGE_ENTID"] = {},
+    ["WAIFU_PICS_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["WAIFUPICS_TEST_LIVE"] == "TRUE"
+  local live = env["WAIFU_PICS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

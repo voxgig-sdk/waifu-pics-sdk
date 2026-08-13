@@ -87,7 +87,7 @@ image = client.Image()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `file` | `list` | Yes |  |
+| `files` | `list` | Yes |  |
 
 ### Operations
 
@@ -96,7 +96,7 @@ image = client.Image()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Image().list()
+results = client.Image().list({"category": "example", "type": "example"})
 for image in results:
     print(image)
 ```

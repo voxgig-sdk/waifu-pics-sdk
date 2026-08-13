@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import WaifuPicsSDK
-from core.error import WaifuPicsError
-from core.result import WaifuPicsResult
-from core.response import WaifuPicsResponse
-from core.spec import WaifuPicsSpec
-from feature.base_feature import WaifuPicsBaseFeature
+from projectname_sdk.core.error import WaifuPicsError
+from projectname_sdk.core.result import WaifuPicsResult
+from projectname_sdk.core.response import WaifuPicsResponse
+from projectname_sdk.core.spec import WaifuPicsSpec
+from projectname_sdk.feature.base_feature import WaifuPicsBaseFeature
 
 
 def _client():

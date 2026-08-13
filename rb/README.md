@@ -37,7 +37,7 @@ begin
   # list returns an Array of Image records — iterate directly.
   images = client.Image.list
   images.each do |item|
-    puts "#{item["file"]}"
+    puts "#{item["files"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -119,7 +119,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = WaifuPicsSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 image = client.Image.list()
 puts image
 ```
@@ -236,7 +237,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `file` |  |
+| `files` |  |
 
 Operations: List.
 
@@ -261,7 +262,7 @@ Create an instance: `image = client.Image`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `file` | `Array` |  |
+| `files` | `Array` |  |
 
 #### Example: List
 

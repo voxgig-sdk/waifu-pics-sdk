@@ -32,7 +32,7 @@ class WaifuPicsConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'file',
+              'name' => 'files',
               'req' => true,
               'type' => '`$ARRAY`',
               'index$' => 0,
@@ -70,6 +70,7 @@ class WaifuPicsConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/many/{type}/{category}',
                   'parts' => [
@@ -85,7 +86,7 @@ class WaifuPicsConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.files`',
                   ],
                   'index$' => 0,
                 ],

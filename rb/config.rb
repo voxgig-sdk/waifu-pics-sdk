@@ -27,7 +27,7 @@ module WaifuPicsConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "file",
+              "name" => "files",
               "req" => true,
               "type" => "`$ARRAY`",
               "index$" => 0,
@@ -65,6 +65,7 @@ module WaifuPicsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/many/{type}/{category}",
                   "parts" => [
@@ -80,7 +81,7 @@ module WaifuPicsConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.files`",
                   },
                   "index$" => 0,
                 },

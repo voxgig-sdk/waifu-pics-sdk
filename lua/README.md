@@ -43,7 +43,7 @@ local images, err = client:Image():list()
 if err then error(err) end
 
 for _, item in ipairs(images) do
-  print(item["file"])
+  print(item["files"])
 end
 ```
 
@@ -218,9 +218,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local image, err = client:Image():load()
+    local image, err = client:Image():list()
     if err then error(err) end
-    -- image is the loaded record
+    -- image is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -231,7 +231,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `file` |  |
+| `files` |  |
 
 Operations: List.
 
@@ -256,7 +256,7 @@ Create an instance: `local image = client:Image(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `file` | `table` |  |
+| `files` | `table` |  |
 
 #### Example: List
 
