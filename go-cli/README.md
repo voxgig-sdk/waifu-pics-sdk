@@ -19,14 +19,15 @@ make build
 export WAIFU_PICS_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./waifu-pics-cli list image
+./waifu-pics-cli load 1 image            # {id:1} shorthand
+./waifu-pics-cli load '{id:1}' image       # explicit match map
 
 # 5. Override the API base URL for a single call
-WAIFU_PICS_BASE=https://api.example.com ./waifu-pics-cli list image
+WAIFU_PICS_BASE=https://api.example.com ./waifu-pics-cli load 1 image
 
 # 6. No arguments -> interactive REPL
 ./waifu-pics-cli
-waifu-pics> list image
+waifu-pics> load 1 image
 waifu-pics> /quit
 ```
 
@@ -52,7 +53,7 @@ waifu-pics> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/waifu-pics-cli list image
+   ./dist/*/waifu-pics-cli load 1 image
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -62,14 +63,15 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 
 ## How-to guides
 
-### List the records of an entity
+### Load a single record
 
 ```sh
-./waifu-pics-cli list image
+./waifu-pics-cli load 1 image          # scalar shorthand for {id:1}
+./waifu-pics-cli load '{id:1}' image     # explicit match map
 ```
 
-`list <entity>` returns the first page of records. `<entity>` is a bareword —
-it is auto-quoted as an boru atom, so no quotes are needed.
+The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
+(`{id:1}`, `{slug:"acme"}`). Quote the map so your shell passes it through intact.
 
 ### Authenticate and choose an environment
 
@@ -78,7 +80,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export WAIFU_PICS_APIKEY=sk_live_xxx            # API key
 export WAIFU_PICS_BASE=https://api.example.com  # optional: override the API base URL
-./waifu-pics-cli list image
+./waifu-pics-cli load 1 image
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -90,7 +92,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./waifu-pics-cli
-waifu-pics> list image
+waifu-pics> load 1 image
 waifu-pics> /help
 waifu-pics> /quit
 ```
@@ -115,7 +117,7 @@ The CLI registers these boru words, each bound to the SDK:
 
 | Word     | Signatures                                    | Returns                        |
 |----------|-----------------------------------------------|--------------------------------|
-| `list`   | `list <entity>` · `list <query> <entity>`     | First page of records          |
+| `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 
 - `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `image`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as

@@ -35,17 +35,16 @@ describe('ImageDirect', async () => {
   })
 
 
-  test('direct-list-image', async (t: any) => {
-    const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
-    if (maybeSkipControl(t, 'direct', 'direct-list-image', setup.live)) return
-    if (skipIfMissingIds(t, setup, ["category01","type01"])) return
+  test('direct-load-image', async (t: any) => {
+    const setup = directSetup({ id: 'direct01' })
+    if (maybeSkipControl(t, 'direct', 'direct-load-image', setup.live)) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      params.category = setup.idmap['category01']
-      params.type = setup.idmap['type01']
+      params.category = "trap"
+      params.type = "nsfw"
     } else {
       params.category = 'direct01'
       params.type = 'direct02'
@@ -59,23 +58,17 @@ describe('ImageDirect', async () => {
     })
 
     if (setup.live) {
-      // Live mode is lenient: synthetic IDs frequently 4xx and the list-
-      // response shape varies wildly across public APIs. Skip rather than
-      // fail when the call doesn't return a usable list.
+      // Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
+      // than fail when the load endpoint isn't reachable with the IDs we
+      // can construct from setup.idmap.
       if (!result.ok || result.status < 200 || result.status >= 300) {
-        return
-      }
-      const listArr = unwrapListData(result.data)
-      if (!Array.isArray(listArr)) {
         return
       }
     } else {
       assert(result.ok === true)
       assert(result.status === 200)
       assert(null != result.data)
-      const listArr = unwrapListData(result.data)
-      assert(Array.isArray(listArr))
-      assert(listArr!.length === 2)
+      assert(result.data.id === 'direct01')
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))

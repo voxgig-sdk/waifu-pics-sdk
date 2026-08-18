@@ -91,14 +91,12 @@ image = client.Image()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-results = client.Image().list({"category": "example", "type": "example"})
-for image in results:
-    print(image)
+result = client.Image().load({"category": "category", "type": "type"})
 ```
 
 ### Common Methods

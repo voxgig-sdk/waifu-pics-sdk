@@ -94,12 +94,12 @@ local image = client:Image(nil)
 
 ### Operations
 
-#### `list(reqmatch, ctrl) -> any, err`
+#### `load(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```lua
-local results, err = client:Image():list()
+local result, err = client:Image():load({ category = "category", type = "type" })
 ```
 
 ### Common Methods

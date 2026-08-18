@@ -96,12 +96,12 @@ $image = $client->Image();
 
 ### Operations
 
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$results = $client->Image()->list();
+$result = $client->Image()->load(["category" => "category", "type" => "type"]);
 ```
 
 ### Common Methods

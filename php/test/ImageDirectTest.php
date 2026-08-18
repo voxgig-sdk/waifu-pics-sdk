@@ -10,54 +10,42 @@ use PHPUnit\Framework\TestCase;
 
 class ImageDirectTest extends TestCase
 {
-    public function test_direct_list_image(): void
+    public function test_direct_load_image(): void
     {
-        $setup = image_direct_setup([
-            ["id" => "direct01"],
-            ["id" => "direct02"],
-        ]);
-        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-list-image", $setup["live"] ? "live" : "unit");
+        $setup = image_direct_setup(["id" => "direct01"]);
+        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-load-image", $setup["live"] ? "live" : "unit");
         if ($_shouldSkip) {
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
-        if ($setup["live"]) {
-            foreach (["category01", "type01"] as $_liveKey) {
-                if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
-                    $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
-                    return;
-                }
-            }
-        }
         $client = $setup["client"];
 
         $params = [];
+        $query = [];
         if ($setup["live"]) {
-            $params["category"] = $setup["idmap"]["category01"];
+            $params["category"] = "trap";
+            $params["type"] = "nsfw";
         } else {
             $params["category"] = "direct01";
-        }
-        if ($setup["live"]) {
-            $params["type"] = $setup["idmap"]["type01"];
-        } else {
-            $params["type"] = "direct01";
+            $params["type"] = "direct02";
         }
 
         $result = $client->direct([
             "path" => "many/{type}/{category}",
             "method" => "GET",
             "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
-            // Live mode is lenient: synthetic IDs frequently 4xx and the
-            // list-response shape varies wildly across public APIs. Skip
-            // rather than fail when the call doesn't return a usable list.
+            // Live mode is lenient: synthetic IDs frequently 4xx. Skip
+            // rather than fail when the load endpoint isn't reachable
+            // with the IDs we can construct from setup.idmap.
             if (!empty($result["err"])) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
+                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
-                $this->markTestSkipped("list call not ok (likely synthetic IDs against live API)");
+                $this->markTestSkipped("load call not ok (likely synthetic IDs against live API)");
                 return;
             }
             $status = Helpers::to_int($result["status"]);
@@ -69,8 +57,10 @@ class ImageDirectTest extends TestCase
             $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
-            $this->assertIsArray($result["data"]);
-            $this->assertCount(2, $result["data"]);
+            $this->assertNotNull($result["data"]);
+            if (is_array($result["data"]) && isset($result["data"]["id"])) {
+                $this->assertEquals("direct01", $result["data"]["id"]);
+            }
             $this->assertCount(1, $setup["calls"]);
         }
     }

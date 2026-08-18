@@ -20,6 +20,6 @@ class Image(TypedDict):
     files: list
 
 
-class ImageListMatch(TypedDict):
+class ImageLoadMatch(TypedDict):
     category: str
     type: str

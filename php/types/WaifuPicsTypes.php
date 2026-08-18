@@ -18,8 +18,8 @@ class Image
     public array $files;
 }
 
-/** Request payload for Image#list. */
-class ImageListMatch
+/** Request payload for Image#load. */
+class ImageLoadMatch
 {
     public string $category;
     public string $type;

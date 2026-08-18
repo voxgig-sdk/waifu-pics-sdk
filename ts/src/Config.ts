@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://api.waifu.pics',
+    base: "https://api.waifu.pics",
 
     headers: {
       "content-type": "application/json"
@@ -55,42 +55,35 @@ class Config {
     "image": {
       "fields": [
         {
-          "active": true,
           "name": "files",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         }
       ],
       "name": "image",
       "op": {
-        "list": {
+        "load": {
           "input": "data",
-          "name": "list",
+          "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "params": [
                   {
-                    "active": true,
                     "example": "trap",
                     "kind": "param",
                     "name": "category",
                     "orig": "category",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": "nsfw",
                     "kind": "param",
                     "name": "type",
                     "orig": "type",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -110,12 +103,10 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body.files`"
-              },
-              "index$": 0
+                "res": "`body`"
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {

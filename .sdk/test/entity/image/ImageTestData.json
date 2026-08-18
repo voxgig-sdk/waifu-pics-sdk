@@ -4,17 +4,20 @@
       "IMAGE00": {
         "files": [],
         "category": "CATEGORY01",
-        "type": "TYPE01"
+        "type": "TYPE01",
+        "id": "IMAGE00"
       },
       "IMAGE01": {
         "files": [],
         "category": "CATEGORY01",
-        "type": "TYPE01"
+        "type": "TYPE01",
+        "id": "IMAGE01"
       },
       "IMAGE02": {
         "files": [],
         "category": "CATEGORY01",
-        "type": "TYPE01"
+        "type": "TYPE01",
+        "id": "IMAGE02"
       }
     }
   },

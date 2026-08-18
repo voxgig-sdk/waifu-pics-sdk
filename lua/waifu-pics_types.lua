@@ -9,7 +9,7 @@
 ---@class Image
 ---@field files table
 
----@class ImageListMatch
+---@class ImageLoadMatch
 ---@field category string
 ---@field type string
 

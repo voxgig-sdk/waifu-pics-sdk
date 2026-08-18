@@ -5,7 +5,7 @@
 The Python SDK for the WaifuPics API — an entity-oriented client following Pythonic conventions.
 
 The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Image()` — each
-carrying a small, uniform set of operations (`list`) instead of raw URL
+carrying a small, uniform set of operations (`load`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
 
@@ -36,18 +36,17 @@ from waifupics_sdk import WaifuPicsSDK
 client = WaifuPicsSDK()
 ```
 
-### 2. List image records
+### 3. Load an image
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+Image is nested under category, so provide the `category`.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    images = client.Image().list({"category": "example", "type": "example"})
-    for image in images:
-        print(image)
+    image = client.Image().load({"category": "example_category", "type": "example_type"})
+    print(image)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 
@@ -57,10 +56,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    images = client.Image().list()
-    print(images)
+    image = client.Image().load({"category": "example", "type": "example"})
+    print(image)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -126,7 +125,7 @@ client = WaifuPicsSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-image = client.Image().list()
+image = client.Image().load({"category": "example", "type": "example"})
 # image contains the mock response record
 ```
 
@@ -211,7 +210,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -245,7 +244,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `files` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/many/{type}/{category}`
 
@@ -262,7 +261,7 @@ Create an instance: `image = client.Image()`
 
 | Method | Description |
 | --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -270,10 +269,10 @@ Create an instance: `image = client.Image()`
 | --- | --- | --- |
 | `files` | `list` |  |
 
-#### Example: List
+#### Example: Load
 
 ```python
-images = client.Image().list({"category": "example", "type": "example"})
+image = client.Image().load({"category": "category", "type": "type"})
 ```
 
 
@@ -348,14 +347,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 image = client.Image()
-image.list()
+image.load({"category": "example", "type": "example"})
 
-# image.data_get() now returns the image data from the last list
+# image.data_get() now returns the image data from the last load
 # image.match_get() returns the last match criteria
 ```
 

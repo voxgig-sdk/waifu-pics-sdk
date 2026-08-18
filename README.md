@@ -19,11 +19,11 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 This SDK exposes the API as a small set of **semantic entities** — Image — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
-support (`list`):
+support (`load`):
 
 ```ts
 const client = new WaifuPicsSDK()
-const items = await client.Image().list({ category: "example", type: "example" })
+const image = await client.Image().load({ category: "example", type: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -47,18 +47,18 @@ const client = WaifuPicsSDK.test({
     },
   },
 })
-const images = await client.Image().list()
-// images is an array of Image entities, populated with mock data
-// — call images[0].data() for the record itself
-console.log(images)
+const image = await client.Image().load({ category: 'example_category', type: 'example_type' })
+// image is the Image entity, populated with mock data
+// — call image.data() for the record itself
+console.log(image)
 ```
 
 ### Python
 
 ```python
 client = WaifuPicsSDK.test()
-images = client.Image().list()
-print(images)
+image = client.Image().load({"category": "example", "type": "example"})
+print(image)
 ```
 
 ### PHP
@@ -68,14 +68,14 @@ print(images)
 $client = WaifuPicsSDK::test([
     "entity" => ["image" => ["test01" => []]],
 ]);
-$images = $client->Image()->list();
+$image = $client->Image()->load(["category" => "example", "type" => "example"]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Image(nil).List(
+result, err := client.Image(nil).Load(
     nil, nil,
 )
 ```
@@ -87,14 +87,14 @@ result, err := client.Image(nil).List(
 client = WaifuPicsSDK.test({
   "entity" => { "image" => { "test01" => {} } },
 })
-images = client.Image.list()
+image = client.Image.load({ "category" => "example", "type" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Image():list()
+local result, err = client:Image():load({ category = "example", type = "example" })
 ```
 
 ## Packages
@@ -119,11 +119,13 @@ import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
 
 const client = new WaifuPicsSDK()
 
-// List all images (returns ImageEntity[] — .data() for the record)
-const images = await client.Image().list({ category: "example", type: "example" })
-for (const image of images) {
-  console.log(image)
-}
+
+// Load a specific image (returns a Image)
+const image = await client.Image().load({
+  category: 'example_category',
+  type: 'example_type',
+})
+console.log(image)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -164,9 +166,9 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Image** | The Image entity (list). | `/many/{type}/{category}` |
+| **Image** | The Image entity (load). | `/many/{type}/{category}` |
 
-The operations available across these entities are **list** — see each entity's
+The operations available across these entities are **load** — see each entity's
 own list above for exactly which it supports.
 
 ## Quickstart in other languages
@@ -178,10 +180,10 @@ from waifupics_sdk import WaifuPicsSDK
 
 client = WaifuPicsSDK()
 
-# List all images (returns a list, raises on error)
-images = client.Image().list({"category": "example", "type": "example"})
-for image in images:
-    print(image)
+
+# Load a specific image (returns the record, raises on error)
+image = client.Image().load({"category": "example_category", "type": "example_type"})
+print(image)
 ```
 
 ### PHP
@@ -192,9 +194,10 @@ require_once 'waifupics_sdk.php';
 
 $client = new WaifuPicsSDK();
 
-// List all images (returns an array; throws on error)
-$images = $client->Image()->list();
-print_r($images);
+
+// Load a specific image (returns the ENTITY; call data_get() for the record; throws on error)
+$image = $client->Image()->load(["category" => "example_category", "type" => "example_type"]);
+print_r($image);
 ```
 
 ### Golang
@@ -204,12 +207,15 @@ import sdk "github.com/voxgig-sdk/waifu-pics-sdk/go"
 
 client := sdk.New()
 
-// List all images
-images, err := client.Image(nil).List(nil, nil)
+
+// Load a specific image
+image, err := client.Image(nil).Load(
+    map[string]any{"category": "example_category", "type": "example_type"}, nil,
+)
 if err != nil {
     panic(err)
 }
-fmt.Println(images)
+fmt.Println(image)
 ```
 
 ### Ruby
@@ -219,9 +225,10 @@ require_relative "WaifuPics_sdk"
 
 client = WaifuPicsSDK.new
 
-# List all images (returns an Array; raises on error)
-images = client.Image.list
-puts images
+
+# Load a specific image (returns the ENTITY; call data_get for the record)
+image = client.Image.load({ "category" => "example_category", "type" => "example_type" })
+puts image
 ```
 
 ### Lua
@@ -231,9 +238,10 @@ local sdk = require("waifu-pics_sdk")
 
 local client = sdk.new()
 
--- List all images
-local images, err = client:Image():list()
-print(images)
+
+-- Load a specific image
+local image, err = client:Image():load({ category = "example_category", type = "example_type" })
+print(image)
 ```
 
 ## Direct and prepare

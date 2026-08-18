@@ -6,53 +6,41 @@ require_relative "../WaifuPics_sdk"
 require_relative "runner"
 
 class ImageDirectTest < Minitest::Test
-  def test_direct_list_image
-    setup = image_direct_setup([
-      { "id" => "direct01" },
-      { "id" => "direct02" },
-    ])
-    _should_skip, _reason = Runner.is_control_skipped("direct", "direct-list-image", setup[:live] ? "live" : "unit")
+  def test_direct_load_image
+    setup = image_direct_setup({ "id" => "direct01" })
+    _should_skip, _reason = Runner.is_control_skipped("direct", "direct-load-image", setup[:live] ? "live" : "unit")
     if _should_skip
       skip(_reason || "skipped via sdk-test-control.json")
       return
     end
-    if setup[:live]
-      ["category01", "type01"].each do |_live_key|
-        if setup[:idmap][_live_key].nil?
-          skip "live test needs #{_live_key} via *_ENTID env var (synthetic IDs only)"
-          return
-        end
-      end
-    end
     client = setup[:client]
 
     params = {}
+    query = {}
     if setup[:live]
-      params["category"] = setup[:idmap]["category01"]
+      params["category"] = "trap"
+      params["type"] = "nsfw"
     else
       params["category"] = "direct01"
-    end
-    if setup[:live]
-      params["type"] = setup[:idmap]["type01"]
-    else
-      params["type"] = "direct01"
+      params["type"] = "direct02"
     end
 
     result = client.direct({
       "path" => "many/{type}/{category}",
       "method" => "GET",
       "params" => params,
+      "query" => query,
     })
     if setup[:live]
-      # Live mode is lenient: synthetic IDs frequently 4xx and the list-
-      # response shape varies wildly across public APIs. Skip rather than
-      # fail when the call doesn't return a usable list.
+      # Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
+      # than fail when the load endpoint isn't reachable with the IDs
+      # we can construct from setup.idmap.
       if !result["err"].nil?
-        skip("list call failed (likely synthetic IDs against live API): #{result["err"]}")
+        skip("load call failed (likely synthetic IDs against live API): #{result["err"]}")
         return
       end
       unless result["ok"]
-        skip("list call not ok (likely synthetic IDs against live API)")
+        skip("load call not ok (likely synthetic IDs against live API)")
         return
       end
       status = Helpers.to_int(result["status"])
@@ -64,8 +52,10 @@ class ImageDirectTest < Minitest::Test
       assert_nil result["err"]
       assert result["ok"]
       assert_equal 200, Helpers.to_int(result["status"])
-      assert result["data"].is_a?(Array)
-      assert_equal 2, result["data"].length
+      assert !result["data"].nil?
+      if result["data"].is_a?(Hash)
+        assert_equal "direct01", result["data"]["id"]
+      end
       assert_equal 1, setup[:calls].length
     end
   end

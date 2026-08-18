@@ -4,7 +4,7 @@
 
 The Ruby SDK for the WaifuPics API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Image` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Image` — with named operations (`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -30,17 +30,17 @@ require_relative "WaifuPics_sdk"
 client = WaifuPicsSDK.new
 ```
 
-### 2. List image records
+### 3. Load an image
+
+Image is nested under category, so provide the `category`.
 
 ```ruby
 begin
-  # list returns an Array of Image records — iterate directly.
-  images = client.Image.list
-  images.each do |item|
-    puts "#{item["files"]}"
-  end
+  # load returns the ENTITY — call data_get for the Image record (raises on error).
+  image = client.Image.load({ "category" => "example_category", "type" => "example_type" })
+  puts image
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -51,9 +51,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  images = client.Image.list()
+  image = client.Image.load({ "category" => "example", "type" => "example" })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -121,7 +121,7 @@ client = WaifuPicsSDK.test
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-image = client.Image.list()
+image = client.Image.load({ "category" => "example", "type" => "example" })
 puts image
 ```
 
@@ -206,7 +206,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -239,7 +239,7 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `files` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/many/{type}/{category}`
 
@@ -256,7 +256,7 @@ Create an instance: `image = client.Image`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -264,11 +264,11 @@ Create an instance: `image = client.Image`
 | --- | --- | --- |
 | `files` | `Array` |  |
 
-#### Example: List
+#### Example: Load
 
 ```ruby
-# list returns an Array of Image records (raises on error).
-images = client.Image.list
+# load returns the ENTITY — call data_get for the Image record (raises on error).
+image = client.Image.load({ "category" => "category", "type" => "type" })
 ```
 
 
@@ -344,14 +344,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 image = client.Image
-image.list()
+image.load({ "category" => "example", "type" => "example" })
 
-# image.data_get now returns the image data from the last list
+# image.data_get now returns the image data from the last load
 # image.match_get returns the last match criteria
 ```
 

@@ -102,16 +102,16 @@ fmt.Println(image.GetName()) // "image"
 
 ### Operations
 
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
+#### `Load(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```go
-results, err := client.Image(nil).List(nil, nil)
+result, err := client.Image(nil).Load(map[string]any{"category": "category", "type": "type"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+fmt.Println(result)
 ```
 
 ### Common Methods

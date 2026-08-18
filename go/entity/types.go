@@ -17,8 +17,8 @@ type Image struct {
 	Files []any `json:"files"`
 }
 
-// ImageListMatch is the typed request payload for Image.ListTyped.
-type ImageListMatch struct {
+// ImageLoadMatch is the typed request payload for Image.LoadTyped.
+type ImageLoadMatch struct {
 	Category string `json:"category"`
 	Type string `json:"type"`
 }

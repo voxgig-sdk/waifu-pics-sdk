@@ -4,7 +4,7 @@
 
 The PHP SDK for the WaifuPics API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Image()` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Image()` — with named operations (`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -31,15 +31,15 @@ require_once 'waifupics_sdk.php';
 $client = new WaifuPicsSDK();
 ```
 
-### 2. List image records
+### 3. Load an image
+
+Image is nested under category, so provide the `category`.
 
 ```php
 try {
-    // list() returns an array of Image records — iterate directly.
-    $images = $client->Image()->list();
-    foreach ($images as $item) {
-        echo $item["files"] . "\n";
-    }
+    // load() returns the ENTITY — call data_get() for the Image record (throws on error).
+    $image = $client->Image()->load(["category" => "example_category", "type" => "example_type"]);
+    print_r($image);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -53,7 +53,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $images = $client->Image()->list();
+    $image = $client->Image()->load(["category" => "example", "type" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -127,7 +127,7 @@ $client = WaifuPicsSDK::test();
 
 // Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$image = $client->Image()->list();
+$image = $client->Image()->load(["category" => "example", "type" => "example"]);
 print_r($image);
 ```
 
@@ -215,7 +215,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -249,7 +249,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | --- | --- |
 | `files` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/many/{type}/{category}`
 
@@ -266,7 +266,7 @@ Create an instance: `$image = $client->Image();`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -274,11 +274,11 @@ Create an instance: `$image = $client->Image();`
 | --- | --- | --- |
 | `files` | `array` |  |
 
-#### Example: List
+#### Example: Load
 
 ```php
-// list() returns an array of Image records (throws on error).
-$images = $client->Image()->list();
+// load() returns the ENTITY — call data_get() for the Image record (throws on error).
+$image = $client->Image()->load(["category" => "category", "type" => "type"]);
 ```
 
 
@@ -354,14 +354,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $image = $client->Image();
-$image->list();
+$image->load(["category" => "example", "type" => "example"]);
 
-// $image->data_get() now returns the image data from the last list
+// $image->data_get() now returns the image data from the last load
 // $image->match_get() returns the last match criteria
 ```
 

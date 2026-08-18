@@ -5,7 +5,7 @@
 The TypeScript SDK for the WaifuPics API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
-`client.Image()` — each with a small set of operations (`list`)
+`client.Image()` — each with a small set of operations (`load`)
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
@@ -33,17 +33,20 @@ import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
 const client = new WaifuPicsSDK()
 ```
 
-### 2. List image records
+### 3. Load an image
 
-`list()` resolves to an array of Image ENTITIES — every operation
-resolves to entities, not raw records. Iterate them directly, and call
-`.data()` on one for the record it holds:
+Image is nested under category, so provide the `category`.
+`load()` returns the entity directly and throws on failure:
 
 ```ts
-const images = await client.Image().list({ category: "example", type: "example" })
-
-for (const image of images) {
+try {
+  const image = await client.Image().load({
+    category: 'example_category',
+    type: 'example_type',
+  })
   console.log(image)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -54,10 +57,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const images = await client.Image().list()
-  console.log(images)
+  const image = await client.Image().load({ category: "example", type: "example" })
+  console.log(image)
 } catch (err) {
-  console.error('list failed:', err)
+  console.error('load failed:', err)
 }
 ```
 
@@ -121,7 +124,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WaifuPicsSDK.test()
 
-const image = await client.Image().list()
+const image = await client.Image().load({ category: 'example_category', type: 'example_type' })
 // image is the entity, populated with mock response data
 // — call image.data() for the record itself
 console.log(image)
@@ -142,7 +145,7 @@ Entity instances remember their last match and data:
 const entity = client.Image()
 
 // First call runs the operation and stores its result
-await entity.list()
+await entity.load({ category: 'example_category', type: 'example_type' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -234,7 +237,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -246,8 +249,7 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `list` resolves to an **array** of entity objects (iterate it directly;
-  there is no `.data` and no `.ok`).
+- `load` resolves to a single entity object.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -289,7 +291,7 @@ The `prepare()` method returns:
 | --- | --- |
 | `files` |  |
 
-Operations: list.
+Operations: load.
 
 API path: `/many/{type}/{category}`
 
@@ -306,7 +308,7 @@ Create an instance: `const image = client.Image()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -314,10 +316,10 @@ Create an instance: `const image = client.Image()`
 | --- | --- | --- |
 | `files` | `any[]` |  |
 
-#### Example: List
+#### Example: Load
 
 ```ts
-const images = await client.Image().list({ category: "example", type: "example" })
+const image = await client.Image().load({ category: 'category', type: 'type' })
 ```
 
 
@@ -385,15 +387,15 @@ import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const image = client.Image()
-await image.list()
+await image.load({ category: "example", type: "example" })
 
-// image.data() now returns the image data from the last `list`
+// image.data() now returns the image data from the last `load`
 // image.match() returns the last match criteria
 ```
 

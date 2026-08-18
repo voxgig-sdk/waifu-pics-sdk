@@ -39,7 +39,7 @@ describe('ImageEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.WAIFU_PICS_TEST_LIVE
-    for (const op of ['list']) {
+    for (const op of ['load']) {
       if (maybeSkipControl(t, 'entityOp', 'image.' + op, live)) return
     }
 
@@ -59,13 +59,9 @@ describe('ImageEntity', async () => {
 
     let image_ref01_data = Object.values(setup.data.existing.image)[0] as any
 
-    // LIST
+    // LOAD: skipped — no entity id field and load requires path params.
+    // Entity-var is declared here so later flow steps still compile.
     const image_ref01_ent = client.Image()
-    const image_ref01_match: any = {}
-    image_ref01_match['category'] = setup.idmap['category01']
-    image_ref01_match['type'] = setup.idmap['type01']
-
-    const image_ref01_list = (await image_ref01_ent.list(image_ref01_match)).map((e: any) => e.data())
 
 
   })

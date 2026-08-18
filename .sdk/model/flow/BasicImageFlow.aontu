@@ -7,17 +7,23 @@ main: kit: flow: BasicImageFlow:
   name: "BasicImageFlow",
   step: [
     {
+      input: {
+        ref: "image_ref01",
+        srcdatavar: "image_ref01_data",
+        suffix: "_dt0"
+      }
+
       match: {
-        category: "category01",
+        id: "image01",
         type: "type01"
       }
 
-      op: "list",
+      op: "load",
       valid: [
         {
-          apply: "ItemExists",
+          apply: "TextFieldMark",
           def: {
-            ref: "image_ref01"
+            mark: "Mark01-image_ref01"
           }
         }
       ]

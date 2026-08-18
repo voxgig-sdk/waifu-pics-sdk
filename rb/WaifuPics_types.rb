@@ -17,14 +17,14 @@ Image = Struct.new(
   keyword_init: true
 )
 
-# Request payload for Image#list.
+# Request payload for Image#load.
 #
 # @!attribute [rw] category
 #   @return [String]
 #
 # @!attribute [rw] type
 #   @return [String]
-ImageListMatch = Struct.new(
+ImageLoadMatch = Struct.new(
   :category,
   :type,
   keyword_init: true

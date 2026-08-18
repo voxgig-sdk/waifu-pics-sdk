@@ -40,7 +40,7 @@ class WaifuPicsSDK
         $utility = new WaifuPicsUtility();
         $this->_utility = $utility;
 
-        $config = WaifuPicsConfig::make_config();
+        $config = WaifuPicsConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

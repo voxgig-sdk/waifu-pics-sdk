@@ -28,7 +28,7 @@ class WaifuPicsSDK
     utility = WaifuPicsUtility.new
     @_utility = utility
 
-    config = WaifuPicsConfig.make_config
+    config = WaifuPicsConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

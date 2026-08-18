@@ -7,8 +7,7 @@ guide: {
 
   entity: image: {
     path: "/many/{type}/{category}": {
-      op: list: method: *GET
-      op: list: transform: res: *("`body.files`")|top
+      op: load: method: *GET
     }
   }
 

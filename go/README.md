@@ -4,7 +4,7 @@
 
 The Golang SDK for the WaifuPics API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client.Image(nil)` — each with the same small set of operations (`List`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Image(nil)` — each with the same small set of operations (`Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -50,14 +50,12 @@ import (
 func main() {
     client := sdk.New()
 
-    // List image records — the value is the array of records itself.
-    images, err := client.Image(nil).List(nil, nil)
+    // Load a single image — the value is the loaded record.
+    image, err := client.Image(nil).Load(map[string]any{"category": "example_category", "type": "example_type"}, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range images.([]any) {
-        fmt.Println(item)
-    }
+    fmt.Println(image)
 }
 ```
 
@@ -68,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-images, err := client.Image(nil).List(nil, nil)
+image, err := client.Image(nil).Load(map[string]any{"category": "example", "type": "example"}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = images
+_ = image
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -137,8 +135,8 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-image, err := client.Image(nil).List(
-    nil, nil,
+image, err := client.Image(nil).Load(
+    map[string]any{"category": "example", "type": "example"}, nil,
 )
 if err != nil {
     panic(err)
@@ -228,7 +226,7 @@ All entities implement the `WaifuPicsEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
+| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -241,13 +239,13 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `List` | a `[]any` of entity records |
+| `Load` | the entity record (`map[string]any`) |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    image, err := client.Image(nil).List(map[string]any{/* fields */}, nil)
+    image, err := client.Image(nil).Load(nil, nil)
     if err != nil { /* handle */ }
     // image is the returned record
 
@@ -262,7 +260,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | --- | --- |
 | `"files"` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/many/{type}/{category}`
 
@@ -279,7 +277,7 @@ Create an instance: `image := client.Image(nil)`
 
 | Method | Description |
 | --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -287,14 +285,14 @@ Create an instance: `image := client.Image(nil)`
 | --- | --- | --- |
 | `files` | `[]any` |  |
 
-#### Example: List
+#### Example: Load
 
 ```go
-images, err := client.Image(nil).List(nil, nil)
+image, err := client.Image(nil).Load(map[string]any{"category": "category", "type": "type"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(images) // the array of records
+fmt.Println(image) // the loaded record
 ```
 
 
@@ -367,14 +365,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `List`, the entity
+Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 image := client.Image(nil)
-image.List(nil, nil)
+image.Load(map[string]any{"category": "example", "type": "example"}, nil)
 
-// image.Data() now returns the image data from the last list
+// image.Data() now returns the image data from the last load
 // image.Match() returns the last match criteria
 ```
 

@@ -14,8 +14,8 @@ main: kit: entity: image: {
 
   name: "image"
   op: {
-    list: {
-      name: "list"
+    load: {
+      name: "load"
       points: [
         {
           args: {
@@ -53,7 +53,7 @@ main: kit: entity: image: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body.files`"
+            res: "`body`"
           }
         }
       ]

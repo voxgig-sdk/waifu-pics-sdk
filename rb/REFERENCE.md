@@ -97,12 +97,12 @@ image = client.Image
 
 ### Operations
 
-#### `list(reqmatch = nil, ctrl = nil) -> Array`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-results = client.Image.list
+result = client.Image.load({ "category" => "category", "type" => "type" })
 ```
 
 ### Common Methods

@@ -23,7 +23,7 @@ func NewWaifuPicsSDK(options map[string]any) *WaifuPicsSDK {
 
 	sdk.utility = NewUtility()
 
-	config := MakeConfig()
+	config := SharedConfig()
 
 	sdk.rootctx = sdk.utility.MakeContext(map[string]any{
 		"client":  sdk,

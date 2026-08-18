@@ -9,7 +9,7 @@ export interface Image {
   files: any[]
 }
 
-export interface ImageListMatch {
+export interface ImageLoadMatch {
   category: string
   type: string
 }

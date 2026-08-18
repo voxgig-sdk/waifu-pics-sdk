@@ -120,12 +120,12 @@ const image = client.Image()
 
 ### Operations
 
-#### `list(match: object, ctrl?: object)`
+#### `load(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```ts
-const results = await client.Image().list({ category: "example", type: "example" })
+const result = await client.Image().load({ category: 'category', type: 'type' })
 ```
 
 ### Common Methods

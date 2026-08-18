@@ -1,5 +1,8 @@
 -- WaifuPics SDK configuration
 
+-- Build a fresh, fully materialised config table. Every call rebuilds the
+-- whole structure, so prefer require("config_shared") unless you need a
+-- private copy you intend to mutate.
 local function make_config()
   return {
     main = {
@@ -25,42 +28,35 @@ local function make_config()
       ["image"] = {
         ["fields"] = {
           {
-            ["active"] = true,
             ["name"] = "files",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
-            ["index$"] = 0,
           },
         },
         ["name"] = "image",
         ["op"] = {
-          ["list"] = {
+          ["load"] = {
             ["input"] = "data",
-            ["name"] = "list",
+            ["name"] = "load",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["params"] = {
                     {
-                      ["active"] = true,
                       ["example"] = "trap",
                       ["kind"] = "param",
                       ["name"] = "category",
                       ["orig"] = "category",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
-                      ["index$"] = 0,
                     },
                     {
-                      ["active"] = true,
                       ["example"] = "nsfw",
                       ["kind"] = "param",
                       ["name"] = "type",
                       ["orig"] = "type",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
-                      ["index$"] = 1,
                     },
                   },
                 },
@@ -80,12 +76,10 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.files`",
+                  ["res"] = "`body`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "list",
           },
         },
         ["relations"] = {
