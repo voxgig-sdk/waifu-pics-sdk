@@ -93,7 +93,7 @@ image = client.Image
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `files` | `Array` | Yes |  |
+| `files` | `Array` | Yes | Array of image URLs |
 
 ### Operations
 

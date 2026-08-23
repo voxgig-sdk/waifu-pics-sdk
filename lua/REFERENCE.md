@@ -90,7 +90,7 @@ local image = client:Image(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `files` | `table` | Yes |  |
+| `files` | `table` | Yes | Array of image URLs |
 
 ### Operations
 

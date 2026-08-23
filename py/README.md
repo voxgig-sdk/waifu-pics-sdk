@@ -242,7 +242,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `files` |  |
+| `files` | Array of image URLs |
 
 Operations: Load.
 
@@ -267,7 +267,7 @@ Create an instance: `image = client.Image()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `files` | `list` |  |
+| `files` | `list` | Array of image URLs |
 
 #### Example: Load
 

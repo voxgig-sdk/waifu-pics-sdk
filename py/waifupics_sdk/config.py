@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "WaifuPics",
+            "slug": "waifu-pics",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -51,6 +54,7 @@ def make_config():
           {
             "name": "files",
             "req": True,
+            "short": "Array of image URLs",
             "type": "`$ARRAY`",
           },
         ],

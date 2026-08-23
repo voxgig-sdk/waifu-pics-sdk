@@ -237,7 +237,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `files` |  |
+| `files` | Array of image URLs |
 
 Operations: Load.
 
@@ -262,7 +262,7 @@ Create an instance: `image = client.Image`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `files` | `Array` |  |
+| `files` | `Array` | Array of image URLs |
 
 #### Example: Load
 

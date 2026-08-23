@@ -87,7 +87,7 @@ image = client.Image()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `files` | `list` | Yes |  |
+| `files` | `list` | Yes | Array of image URLs |
 
 ### Operations
 

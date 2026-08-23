@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "WaifuPics",
+      slug = "waifu-pics",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -30,6 +33,7 @@ local function make_config()
           {
             ["name"] = "files",
             ["req"] = true,
+            ["short"] = "Array of image URLs",
             ["type"] = "`$ARRAY`",
           },
         },

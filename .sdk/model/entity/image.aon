@@ -8,6 +8,7 @@ main: kit: entity: image: {
     {
       name: "files"
       req: true
+      short: "Array of image URLs"
       type: "`$ARRAY`"
     }
   ]

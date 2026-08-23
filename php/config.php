@@ -33,6 +33,9 @@ class WaifuPicsConfig
         return [
             "main" => [
                 "name" => "WaifuPics",
+                "slug" => "waifu-pics",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -56,6 +59,7 @@ class WaifuPicsConfig
             [
               'name' => 'files',
               'req' => true,
+              'short' => 'Array of image URLs',
               'type' => '`$ARRAY`',
             ],
           ],

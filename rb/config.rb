@@ -19,6 +19,9 @@ module WaifuPicsConfig
     {
       "main" => {
         "name" => "WaifuPics",
+        "slug" => "waifu-pics",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -42,6 +45,7 @@ module WaifuPicsConfig
             {
               "name" => "files",
               "req" => true,
+              "short" => "Array of image URLs",
               "type" => "`$ARRAY`",
             },
           ],

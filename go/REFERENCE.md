@@ -98,7 +98,7 @@ fmt.Println(image.GetName()) // "image"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `files` | `[]any` | Yes |  |
+| `files` | `[]any` | Yes | Array of image URLs |
 
 ### Operations
 

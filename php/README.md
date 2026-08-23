@@ -247,7 +247,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `files` |  |
+| `files` | Array of image URLs |
 
 Operations: Load.
 
@@ -272,7 +272,7 @@ Create an instance: `$image = $client->Image();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `files` | `array` |  |
+| `files` | `array` | Array of image URLs |
 
 #### Example: Load
 

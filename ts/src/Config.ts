@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'WaifuPics',
+        slug: "waifu-pics",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -57,6 +68,7 @@ class Config {
         {
           "name": "files",
           "req": true,
+          "short": "Array of image URLs",
           "type": "`$ARRAY`"
         }
       ],
