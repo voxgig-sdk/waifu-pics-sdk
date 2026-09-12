@@ -8,6 +8,7 @@
 
 ---@class Image
 ---@field files table
+---@field id? string
 
 ---@class ImageLoadMatch
 ---@field category string

@@ -228,6 +228,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `files` | Array of image URLs |
+| `id` |  |
 
 Operations: Load.
 
@@ -253,6 +254,7 @@ Create an instance: `local image = client:Image(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `files` | `table` | Array of image URLs |
+| `id` | `string` |  |
 
 #### Example: Load
 

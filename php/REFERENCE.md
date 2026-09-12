@@ -93,6 +93,7 @@ $image = $client->Image();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `files` | `array` | Yes | Array of image URLs |
+| `id` | `string` | No |  |
 
 ### Operations
 

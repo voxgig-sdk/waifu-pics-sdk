@@ -16,6 +16,7 @@ declare(strict_types=1);
 class Image
 {
     public array $files;
+    public ?string $id = null;
 }
 
 /** Request payload for Image#load. */

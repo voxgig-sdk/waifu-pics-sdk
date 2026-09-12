@@ -259,6 +259,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"files"` | Array of image URLs |
+| `"id"` |  |
 
 Operations: Load.
 
@@ -284,6 +285,7 @@ Create an instance: `image := client.Image(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `files` | `[]any` | Array of image URLs |
+| `id` | `string` |  |
 
 #### Example: Load
 

@@ -149,7 +149,7 @@ await entity.load({ category: 'example_category', type: 'example_type' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -290,6 +290,7 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `files` | Array of image URLs |
+| `id` |  |
 
 Operations: load.
 
@@ -315,6 +316,7 @@ Create an instance: `const image = client.Image()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `files` | `any[]` | Array of image URLs |
+| `id` | `string` |  |
 
 #### Example: Load
 

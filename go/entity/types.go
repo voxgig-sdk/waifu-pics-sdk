@@ -15,6 +15,7 @@ import (
 // Image is the typed data model for the image entity.
 type Image struct {
 	Files []any `json:"files"`
+	Id *string `json:"id,omitempty"`
 }
 
 // ImageLoadMatch is the typed request payload for Image.LoadTyped.

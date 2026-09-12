@@ -117,6 +117,7 @@ const image = client.Image()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `files` | `any[]` | Yes | Array of image URLs |
+| `id` | `string` | No |  |
 
 ### Operations
 

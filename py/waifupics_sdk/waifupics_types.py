@@ -16,8 +16,12 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Image(TypedDict):
+class ImageRequired(TypedDict):
     files: list
+
+
+class Image(ImageRequired, total=False):
+    id: str
 
 
 class ImageLoadMatch(TypedDict):

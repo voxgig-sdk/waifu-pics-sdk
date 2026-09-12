@@ -37,6 +37,19 @@ local function make_config()
             ["short"] = "Array of image URLs",
             ["type"] = "`$ARRAY`",
           },
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+          ["parts"] = {
+            "type",
+            "category",
+          },
+          ["sep"] = "/",
         },
         ["name"] = "image",
         ["op"] = {
@@ -68,10 +81,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/many/{type}/{category}",
-                ["parts"] = {
-                  "many",
-                  "{type}",
-                  "{category}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "many",
+                  },
+                  {
+                    ["var"] = "type",
+                  },
+                  {
+                    ["var"] = "category",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -82,6 +101,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "many",
+                  "{type}",
+                  "{category}",
                 },
               },
             },

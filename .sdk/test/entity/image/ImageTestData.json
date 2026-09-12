@@ -3,21 +3,21 @@
     "image": {
       "IMAGE00": {
         "files": [],
+        "id": "IMAGE00",
         "category": "CATEGORY01",
-        "type": "TYPE01",
-        "id": "IMAGE00"
+        "type": "TYPE01"
       },
       "IMAGE01": {
         "files": [],
+        "id": "IMAGE01",
         "category": "CATEGORY01",
-        "type": "TYPE01",
-        "id": "IMAGE01"
+        "type": "TYPE01"
       },
       "IMAGE02": {
         "files": [],
+        "id": "IMAGE02",
         "category": "CATEGORY01",
-        "type": "TYPE01",
-        "id": "IMAGE02"
+        "type": "TYPE01"
       }
     }
   },

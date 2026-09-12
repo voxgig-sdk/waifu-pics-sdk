@@ -12,8 +12,12 @@
 #
 # @!attribute [rw] files
 #   @return [Array]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
 Image = Struct.new(
   :files,
+  :id,
   keyword_init: true
 )
 

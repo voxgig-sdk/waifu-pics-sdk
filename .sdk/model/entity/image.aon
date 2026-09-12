@@ -11,7 +11,22 @@ main: kit: entity: image: {
       short: "Array of image URLs"
       type: "`$ARRAY`"
     }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+    parts: [
+      "type"
+      "category"
+    ]
+    sep: "/"
+  }
 
   name: "image"
   op: {
@@ -41,10 +56,16 @@ main: kit: entity: image: {
           }
           method: "GET"
           orig: "/many/{type}/{category}"
-          parts: [
-            "many"
-            "{type}"
-            "{category}"
+          segments: [
+            {
+              lit: "many"
+            }
+            {
+              var: "type"
+            }
+            {
+              var: "category"
+            }
           ]
           select: {
             exist: [

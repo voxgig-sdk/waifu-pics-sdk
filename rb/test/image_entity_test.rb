@@ -41,9 +41,13 @@ class ImageEntityTest < Minitest::Test
 
     # LOAD
     image_ref01_ent = client.Image(nil)
-    image_ref01_match_dt0 = {}
+    image_ref01_match_dt0 = {
+      "id" => image_ref01_data["id"],
+    }
     image_ref01_data_dt0_loaded = image_ref01_ent.load(image_ref01_match_dt0, nil)
-    assert !image_ref01_data_dt0_loaded.nil?
+    image_ref01_data_dt0_load_result = Helpers.to_map(image_ref01_data_dt0_loaded.respond_to?(:data_get) ? image_ref01_data_dt0_loaded.data_get : image_ref01_data_dt0_loaded)
+    assert !image_ref01_data_dt0_load_result.nil?
+    assert_equal image_ref01_data_dt0_load_result["id"], image_ref01_data["id"]
 
   end
 end
@@ -91,6 +95,9 @@ def image_basic_setup(extra)
 
   if env["WAIFU_PICS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},
