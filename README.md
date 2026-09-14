@@ -105,7 +105,7 @@ local result, err = client:Image():load({ category = "example", type = "example"
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/waifu-pics` | publish pending — [install from git tag](https://github.com/voxgig-sdk/waifu-pics-sdk/releases) |
+| TypeScript | `@voxgig-sdk/waifu-pics-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/waifu-pics-sdk/releases) |
 | Python | `voxgig-sdk-waifu-pics` | publish pending — [install from git tag](https://github.com/voxgig-sdk/waifu-pics-sdk/releases) |
 | PHP | `voxgig-sdk/waifu-pics` | publish pending — [install from git tag](https://github.com/voxgig-sdk/waifu-pics-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/waifu-pics-sdk/go` | `go get github.com/voxgig-sdk/waifu-pics-sdk/go@latest` |
@@ -119,7 +119,7 @@ local result, err = client:Image():load({ category = "example", type = "example"
 ### TypeScript
 
 ```ts
-import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
+import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics-sdk'
 
 const client = new WaifuPicsSDK()
 

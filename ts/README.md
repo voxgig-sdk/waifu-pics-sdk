@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
+import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics-sdk'
 
 const client = new WaifuPicsSDK()
 ```
@@ -407,7 +407,7 @@ waifu-pics/
 Import the SDK from the package root:
 
 ```ts
-import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics'
+import { WaifuPicsSDK } from '@voxgig-sdk/waifu-pics-sdk'
 ```
 
 ### Entity state
