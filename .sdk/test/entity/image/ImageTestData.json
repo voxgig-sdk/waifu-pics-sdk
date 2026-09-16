@@ -27,5 +27,122 @@
         "files": []
       }
     }
+  },
+  "requests": {
+    "GET /many/{type}/{category}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getManyPics",
+        "parameters": [
+          {
+            "description": "The genre type of images to retrieve (e.g., 'sfw' for safe-for-work or 'nsfw' for not-safe-for-work)",
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "enum": [
+                "sfw",
+                "nsfw"
+              ],
+              "example": "nsfw",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The category or tag of images to retrieve (e.g., 'waifu', 'neko', 'trap', etc.)",
+            "in": "path",
+            "name": "category",
+            "required": true,
+            "schema": {
+              "example": "trap",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "files": [
+                    "https://cdn.waifu.pics/image1.jpg",
+                    "https://cdn.waifu.pics/image2.jpg",
+                    "https://cdn.waifu.pics/image3.jpg"
+                  ]
+                },
+                "schema": {
+                  "properties": {
+                    "files": {
+                      "description": "Array of image URLs",
+                      "items": {
+                        "example": "https://cdn.waifu.pics/image123.jpg",
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "files"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with multiple image URLs"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Invalid type or category",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - Invalid type or category"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "No images found",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "No images found for the specified type and category"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Internal server error",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

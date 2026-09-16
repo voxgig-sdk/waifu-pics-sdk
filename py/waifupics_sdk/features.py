@@ -1,12 +1,18 @@
 # WaifuPics SDK feature factory
 
 from waifupics_sdk.feature.base_feature import WaifuPicsBaseFeature
+from waifupics_sdk.feature.ratelimit_feature import WaifuPicsRatelimitFeature
+from waifupics_sdk.feature.retry_feature import WaifuPicsRetryFeature
 from waifupics_sdk.feature.test_feature import WaifuPicsTestFeature
+from waifupics_sdk.feature.timeout_feature import WaifuPicsTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: WaifuPicsBaseFeature(),
+    "ratelimit": lambda: WaifuPicsRatelimitFeature(),
+    "retry": lambda: WaifuPicsRetryFeature(),
     "test": lambda: WaifuPicsTestFeature(),
+    "timeout": lambda: WaifuPicsTimeoutFeature(),
 }
 
 

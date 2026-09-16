@@ -1,7 +1,10 @@
 # WaifuPics SDK feature factory
 
 require_relative 'feature/base_feature'
+require_relative 'feature/ratelimit_feature'
+require_relative 'feature/retry_feature'
 require_relative 'feature/test_feature'
+require_relative 'feature/timeout_feature'
 
 
 module WaifuPicsFeatures
@@ -9,8 +12,14 @@ module WaifuPicsFeatures
     case name
     when "base"
       WaifuPicsBaseFeature.new
+    when "ratelimit"
+      WaifuPicsRatelimitFeature.new
+    when "retry"
+      WaifuPicsRetryFeature.new
     when "test"
       WaifuPicsTestFeature.new
+    when "timeout"
+      WaifuPicsTimeoutFeature.new
     else
       WaifuPicsBaseFeature.new
     end
